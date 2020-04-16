@@ -72,6 +72,7 @@ class User extends Authenticatable
         //$this es una insatncia de la clase user 
         // $this para hacer referencia al objeto (instancia) actual, el user logeado con $this
         return in_array($this->type->key, $type);
+        
     }
 
     public function isAdmin()
