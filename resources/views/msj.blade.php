@@ -51,6 +51,7 @@
 			@endforelse
 		</tbody>
 	</table>
+	{!! $messages->links() !!}
 </div>
 
 {{-- <ul class="list-group">

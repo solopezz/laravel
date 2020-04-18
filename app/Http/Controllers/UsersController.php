@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EditUser;
 use App\Models\User;
+use App\Repo\Users;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
 
-    public function __construct()
+    public function __construct(Users $users)
     {
         //Agregamos mas roles para el middleware
         $this->middleware('auth');
         $this->middleware('type:admin,estudiante,jefe',['except'=>['edit','update']]);
-
+        $this->users = $users;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with(['type','roles','note','tags'])->get();
+        $users = $this->users->index();
 
         return view('users', compact('users'));
     }
@@ -82,8 +83,8 @@ class UsersController extends Controller
     public function update(User $user, EditUser $request)
     {
         $this->authorize('update',$user);//->aqui se llama la police UserPolicy en metodo update
-
-        $user->update($request->validated());
+        
+        $this->users->update($user, $request);
 
         return back()->with('status', 'Usuario actualizado');
     }

@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+DB::listen(function($query){
+  //Imprimimos la consulta ejecutada
+	echo "<pre> {$query->sql } </pre>";
+});
 //Parametro obligatorio 
 Route::get('contact/{user}', function($user){
 	return "Saludos " . $user;
@@ -30,11 +33,11 @@ Route::get('/contactame', function(){
 })->name('contactos');
 
 Route::get('/contactos', function () {
-    echo "<a href='". route('contactos')."'>Contactos 1<a><br>";
-    echo "<a href='". route('contactos')."'>Contactos 2<a><br>";
-    echo "<a href='". route('contactos')."'>Contactos 3<a><br>";
-    echo "<a href='". route('contactos')."'>Contactos 4<a><br>";
-    echo "<a href='". route('contactos')."'>Contactos 5<a><br>";
+	echo "<a href='". route('contactos')."'>Contactos 1<a><br>";
+	echo "<a href='". route('contactos')."'>Contactos 2<a><br>";
+	echo "<a href='". route('contactos')."'>Contactos 3<a><br>";
+	echo "<a href='". route('contactos')."'>Contactos 4<a><br>";
+	echo "<a href='". route('contactos')."'>Contactos 5<a><br>";
 });
 
 //Cómo mostrar HTML con las vistas y pasar paramtros desde una vista
