@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('job', function(){
+	dispatch(new SendEmail);
+	return "Listo";
+});
+
 DB::listen(function($query){
   //Imprimimos la consulta ejecutada
 	echo "<pre> {$query->sql } </pre>";

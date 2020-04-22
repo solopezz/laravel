@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Message;
 use App\Models\Role;
 use App\Models\Types;
+use App\Presenters\UsersPresnters;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -93,5 +94,13 @@ class User extends Authenticatable
     public function tags()
     {//withTimestamps guarda fecha y hora en la tabla pivot
         return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
+    }
+
+     public function present()
+    {
+        // Se llama el presnte se hace una instancia y se le pasa el objeto actual
+        //Lo que hace es que se encarga de que en la vista no halla logica y en el modelo tampoco
+        //Se hace un presents
+        return new UsersPresnters($this);
     }
 }

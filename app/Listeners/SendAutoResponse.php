@@ -7,8 +7,8 @@ use App\Mail\MessageSend;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
-
-class SendAutoResponse
+//implements ShouldQueue se impplente y ya que el envio del email es tardado lo delega a que despues lo realize
+class SendAutoResponse implements ShouldQueue
 {
     /**
      * Create the event listener.

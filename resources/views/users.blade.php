@@ -27,16 +27,14 @@
 				<td>{{$item->name}}</td>
 				<td>{{$item->type->name}}</td>
 				<td>
-					@foreach ($item->roles as $role)
-					<p>{{$role->name}}</p>
-					@endforeach
+					{{$item->present()->userRole()}}
 				</td>
 				<td>{{$item->email}}</td>
 				<td>{{$item->note->body}}</td>
 				<td>{{$item->tags->pluck('name')->implode(', ')}}</td>
 				<td>
 					<div style="display: inline-flex;">
-						<a  class="mr-2" href="{{ route('users.edit', $item) }}">Editar</a>
+						{{ $item->present()->userLink() }}
 						<form action="{{ route('users.destroy', $item)  }}" method="POST">
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">

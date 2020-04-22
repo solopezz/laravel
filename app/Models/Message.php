@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Note;
 use App\Models\Tag;
 use App\Models\User;
+use App\Presenters\MessagesPresnters;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
@@ -26,5 +27,13 @@ class Message extends Model
 	public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function present()
+    {
+    	// Se llama el presnte se hace una instancia y se le pasa el objeto actual
+    	//Lo que hace es que se encarga de que en la vista no halla logica y en el modelo tampoco
+    	//Se hace un presents
+    	return new MessagesPresnters($this);
     }
 }

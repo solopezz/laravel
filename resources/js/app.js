@@ -4,9 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+ require('./bootstrap');
 
-window.Vue = require('vue');
+ window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -27,6 +27,28 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+ const app = new Vue({
+ 	el: '#app',
+ });
+// canal	= laravel_database_messages
+// método	= MessageWasRecibe
+ Echo.channel('laravel_database_messages')
+ .listen('MessageWasRecibe', (data)=>{
+ 	let message = data.msj
+ 	let html = `<tr>
+ 	<th scope="row">${message.id}</th>
+ 	<td>
+ 	${message.name}
+ 	</td>
+ 	<td>
+ 	${message.email}
+ 	</td>
+ 	<td>${message.msj}</td>
+ 	<td></td>
+ 	<td></td>
+ 	<td>
+ 	x
+ 	</td>
+ 	</tr>`;
+ 	$(html).prependTo('tbody');
+ });

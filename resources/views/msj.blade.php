@@ -22,23 +22,16 @@
 		<tbody>
 			@forelse($messages as  $index => $item)
 			<tr>
-				<th scope="row">{{++$index}}</th>
+				<th scope="row">{{$item->id}}</th>
 				<td>
-					@if($item->name)
-					{{$item->name}}
-					@else
-					{{$item->users->name}}
-					@endif
+					{{-- Aqui se usa view presents inicia todo --}}
+					{{ $item->present()->userName()}}
 				</td>
 				<td>
-					@if($item->email)
-					{{$item->email}}
-					@else
-					{{$item->users->email}}
-					@endif
+					{{ $item->present()->userEmail()}}
 				</td>
 				<td>{{$item->msj}}</td>
-				<td>{{$item->note ? $item->note->body : ''}}</td>
+				<td>{{$item->present()->userNote()}}</td>
 				<td>{{$item->tags->pluck('name')->implode(', ')}}</td>
 				<td>
 					x

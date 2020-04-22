@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageWasRecibe;
-use App\Repo\SendMailClient;
+//Se implementa interfaze se define clase asociada a esta interfas en AppServiceProviders en boot
+//asi si quiero cambiar o quitar el decorador y dejar el repositorio y tengo muchas intancias de esta clase es ir y cambiar cada uno, mejor hago referencia a a interfaz pero como una iterfas son solo reglas de los metos a usar en el AppServiceProviders se ligan la interfase y el decorador o la iterfase y el ropositorio pero solo seria una vez 
+use App\Interfaces\MessagesInterface;
 use Illuminate\Http\Request;
 
 class SendMailClientController extends Controller
 {
-    public $messages;
+    protected $messages;
 
-    public function __construct(SendMailClient $messages)
+    public function __construct(MessagesInterface $messages)
     {
         $this->messages = $messages;
     }
 
     public function show()
     {
-       //uso de repositories SendMailClient se instancia a esa clase en el constructor 
+        //usa el decorador CacheMessages y depues se hace referencia al report
         $messages = $this->messages->show();
 
         return view('msj', ['messages' => $messages]);
@@ -35,11 +37,10 @@ class SendMailClientController extends Controller
             'msj' => 'required',
         ]);
         
-        //usa el repo SendMailClient
-        $this->messages->send(request()->all());
-
+        //usa el decorador CacheMessages y depues se hace referencia al report
+        $msj = $this->messages->send(request()->all());
         //Se ajecuta el evento y a la espera esta el listener que es el que envia el correo con el mensaje
-        event(new MessageWasRecibe(request()->msj));
+        event(new MessageWasRecibe($msj->getAttributes()));
         
 
     	//return email to vist
