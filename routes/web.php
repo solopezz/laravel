@@ -20,7 +20,7 @@ Route::get('job', function(){
 
 DB::listen(function($query){
   //Imprimimos la consulta ejecutada
-	echo "<pre> {$query->sql } </pre>";
+	// echo "<pre> {$query->sql } </pre>";
 });
 //Parametro obligatorio 
 Route::get('contact/{user}', function($user){
@@ -50,7 +50,7 @@ Route::get('/contactos', function () {
 Route::get('/', function() {
 	// $nombre = "Jorge";
 
-	return view('home', compact('nombre'));
+	return view('layout', compact('nombre'));
 })->name('home');
 
 //blade
