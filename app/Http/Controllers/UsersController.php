@@ -6,6 +6,7 @@ use App\Http\Requests\EditUser;
 use App\Models\User;
 use App\Repo\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -84,6 +85,13 @@ class UsersController extends Controller
     {
         $this->authorize('update',$user);//->aqui se llama la police UserPolicy en metodo update
         
+        if ($request->hasFile('img')) {
+            if ($user->img != "default.png") {
+                Storage::delete($user->img);
+            }
+            $user->img = $request->file('img')->store('public');
+        }
+
         $this->users->update($user, $request);
 
         return back()->with('status', 'Usuario actualizado');

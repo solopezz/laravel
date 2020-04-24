@@ -15,6 +15,7 @@
 				<th scope="col">Tipo</th>
 				<th scope="col">Roles</th>
 				<th scope="col">Email</th>
+				<th scope="col">Imagen</th>
 				<th scope="col">Notas</th>
 				<th scope="col">Tags</th>
 				<th scope="col">Acciones</th>
@@ -30,7 +31,8 @@
 					{{$item->present()->userRole()}}
 				</td>
 				<td>{{$item->email}}</td>
-				<td>{{$item->note->body}}</td>
+				<td><img src="{{Storage::url($item->img)}}"width="42"></td>
+				<td>{{$item->present()->userNote()}}</td>
 				<td>{{$item->tags->pluck('name')->implode(', ')}}</td>
 				<td>
 					<div style="display: inline-flex;">

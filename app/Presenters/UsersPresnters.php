@@ -19,5 +19,12 @@ class UsersPresnters extends Presenter
 		return new HtmlString("<a  class='mr-2' href=". route('users.edit', $this->model->id). ">Editar</a>");
 	}
 
+	public function userNote()
+	{
+		if ($this->model->note) {
+			return $this->model->note->body;
+		}
+	}
+
 	
 }
