@@ -3,6 +3,8 @@
 namespace App\Repo;
 use App\Interfaces\MessagesInterface;
 use App\Models\Message;
+use App\Models\User;
+use App\Notifications\MessageSent;
 
 class SendMailClient implements MessagesInterface
 {
@@ -18,6 +20,7 @@ class SendMailClient implements MessagesInterface
     public function send($request)
     {
         $msj = Message::create($request);
+        
         if (auth()->user()) {
             //Guardar por medio de relaciones analizar es importante
             //el metodo save -> asigna un mensaje ya guardado a una relacion ya creada tambiense puede usar create ejemplo
@@ -38,6 +41,9 @@ class SendMailClient implements MessagesInterface
 
             // Message::create(array_merge(request()->all(), ['user_id' => auth()->user()->id]));
         }
+        $userRecept = User::find($request['recept_id']);
+        
+        $userRecept->notify(new MessageSent($msj));
         return $msj;
     }
 }

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageWasRecibe;
-//Se implementa interfaze se define clase asociada a esta interfas en AppServiceProviders en boot
-//asi si quiero cambiar o quitar el decorador y dejar el repositorio y tengo muchas intancias de esta clase es ir y cambiar cada uno, mejor hago referencia a a interfaz pero como una iterfas son solo reglas de los metos a usar en el AppServiceProviders se ligan la interfase y el decorador o la iterfase y el ropositorio pero solo seria una vez 
 use App\Interfaces\MessagesInterface;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SendMailClientController extends Controller
@@ -27,7 +26,8 @@ class SendMailClientController extends Controller
 
     public function view()
     {
-        return view('messages');
+        $users = auth()->user() ? User::where('id','!=', auth()->user()->id)->get() : User::all();
+        return view('messages', ['users' => $users]);
     }
 
     public function send(Request $request)

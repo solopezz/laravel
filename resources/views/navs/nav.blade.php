@@ -28,6 +28,13 @@
 		<li class="nav-item">
 			<a class="{{ setActive('users.index') }} nav-link" href="/users">usuarios</a>
 		</li>
+		<li class="nav-item">
+			<a class="{{ setActive('notification.index') }} nav-link" href="/notification">Notificaciones
+				@if($count = auth()->user()->notifications->count())
+				<span class="badge">{{$count}}</span>
+				@endif
+			</a>
+		</li>
 		@endif
 		<li class="nav-item">
 			<a class="{{ setActive('login') }} nav-link" href="users/{{auth()->user()->id}}/edit ">Mi cuenta</a>

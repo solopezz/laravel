@@ -80,3 +80,11 @@ Auth::routes();
 
 Route::resource('users', 'UsersController');
 
+Route::get('notification', 'NotificationController@index')->name('notification.index');
+Route::patch('notification/{id}', 'NotificationController@read')->name('notification.read');
+Route::delete('notification/{id}', 'NotificationController@destroy')->name('notification.destroy');
+
+
+
+
+

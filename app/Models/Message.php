@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
 	protected $fillable = [
-		'name', 'email', 'msj','user_id'
+		'name', 'email', 'msj','user_id','recept_id',
 	];
 
 	public function users()

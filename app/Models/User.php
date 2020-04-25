@@ -12,6 +12,9 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
+    //aqui se ustilizan varias relaciones polimorficas y metodos de la notificaciones
+    //una notificacion puede ser para muchas cosas
     use Notifiable;
 
     /**
