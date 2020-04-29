@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\EditUser;
 use App\Models\User;
 use App\Repo\Users;
@@ -106,5 +107,15 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export() 
+    {
+        //aqui se utiliza colas de trabajo para generar el archivo en el servidor luego se puede utliar las notificaciones para envial un email  una notificacion para desirle ue el archivo ya se genero en el servidor y puede descargarlo con un link
+        (new UsersExport)->queue('users.xlsx');
+
+        return back()->with('status', 'Generando archivo');
+        //La exportacion es secuancial o asincorna se espera a que se genere el archivo y lo descargas
+        //return Excel::download(new UsersExport, 'users.xlsx');
     }
 }

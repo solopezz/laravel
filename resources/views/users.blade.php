@@ -52,8 +52,16 @@
 			@endforelse
 		</tbody>
 	</table>
-</div>
+	<div class="row">
+		<div class="col-md-6">
+			{!! $users->links() !!}
+		</div>
+		<div class="col-md-6" style="display: flex; align-items: center; justify-content: flex-end;">
+			<a href="{{route('users.export')}}">descargar usuarios</a>
+		</div>
+	</div>
 
+</div>
 {{-- <ul class="list-group">
 	@forelse($users as $item)
 	<li class="list-group-item"><a href="{{ route('projects.show', $item) }}">

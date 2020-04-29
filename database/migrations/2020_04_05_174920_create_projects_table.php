@@ -18,6 +18,11 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->string('url')->unique();
             $table->text('description');
+            $table->string('pais');
+            $table->string('estado');
+            $table->string('ciuidad');
+            $table->string('calle');
+            $table->boolean('is_public')->default(false);
             $table->timestamps();
         });
     }

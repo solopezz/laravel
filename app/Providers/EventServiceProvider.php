@@ -14,6 +14,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Listeners\SendAutoResponse',
         'App\Listeners\SendNotificationOwner',
         ],
+        'App\Events\ProjectCreated' => [
+        'App\Listeners\NotifyUserAboutNewProjec',
+        ],
     ];
     /**
      * Register any events for your application.

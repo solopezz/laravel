@@ -7,7 +7,7 @@ use App\Mail\MessageSend;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
-
+//implements ShouldQueue se implementa ya que el envio del email es tardado lo delega a que despues lo realize
 class SendNotificationOwner implements ShouldQueue
 {
     /**

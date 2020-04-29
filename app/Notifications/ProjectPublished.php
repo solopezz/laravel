@@ -2,14 +2,15 @@
 
 namespace App\Notifications;
 
+use App\Models\Project;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class MessageSent extends Notification
+class ProjectPublished extends Notification
 {
-    private $msj;
+    private $project;
 
     use Queueable;
 
@@ -18,9 +19,10 @@ class MessageSent extends Notification
      *
      * @return void
      */
-    public function __construct($msj)
+    public function __construct(Project $project)
     {
-        $this->msj = $msj;
+        //
+        $this->project = $project;
     }
 
     /**
@@ -31,8 +33,7 @@ class MessageSent extends Notification
      */
     public function via($notifiable)
     {
-        //usar "database" para ser de base de datos o "email "para enviar email
-        return ['database','mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -44,9 +45,10 @@ class MessageSent extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        ->subject('Nuevo pryecto publicado')
+        ->line($notifiable->name.'Hemos publicado un nuevo pryecto')
+        ->action($this->project->title, route('projects.show',$this->project))
+        ->line('Gracias por leernos');
     }
 
     /**
@@ -57,6 +59,6 @@ class MessageSent extends Notification
      */
     public function toArray($notifiable)
     {
-        return $this->msj->toArray();
+        return $this->project->toArray();
     }
 }

@@ -16,7 +16,12 @@
 			<ul class="list-group">
 				@foreach($unreadNotifications as $item)
 				<li class="list-group-item">
+					@if($item->type == 'App\Notifications\ProjectPublished')
+					{{$item->data['title']}}
+					@else
 					{{$item->data['msj']}}
+					
+					@endif
 					<form method="POST"  action="{{route('notification.read', $item->id)}}" 
 						class="float-right">
 						@method('PATCH')
@@ -34,7 +39,12 @@
 			<ul class="list-group">
 				@foreach($readNotifications as $item)
 				<li class="list-group-item">
+					@if($item->type == 'App\Notifications\ProjectPublished')
+					{{$item->data['title']}}
+					@else
 					{{$item->data['msj']}}
+					
+					@endif
 					<form method="POST"  action="{{route('notification.read', $item->id)}}" 
 						class="float-right">
 						@method('DELETE')

@@ -12,7 +12,7 @@ class Users
 	
 	public function index()
 	{
-		return User::with(['type','roles','note','tags'])->get();
+		return User::with(['type','roles','note','tags'])->paginate(6);
 	}
 
 	public function update($user, $request)

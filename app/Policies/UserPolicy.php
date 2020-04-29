@@ -28,7 +28,7 @@ class UserPolicy
             return true;
         }
     }
-
+    // public function edit(?User $auth, User $user)-> ? no es necesario que un usaurio este logeado 
     public function edit(User $auth, User $user)
     {
         return $auth->id === $user->id;//si es uno pasa o true 

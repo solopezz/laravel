@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
+
 Route::get('job', function(){
 	dispatch(new SendEmail);
 	return "Listo";
@@ -77,12 +79,15 @@ Route::post('mail', 'SendMailClientController@send')->name('mail.send');
 
 
 Auth::routes();
-
+//->middleware('verified')-> verificaion de correo middleware
+Route::get('users/export', 'UsersController@export')->name('users.export')->middleware('verified');
 Route::resource('users', 'UsersController');
 
 Route::get('notification', 'NotificationController@index')->name('notification.index');
 Route::patch('notification/{id}', 'NotificationController@read')->name('notification.read');
 Route::delete('notification/{id}', 'NotificationController@destroy')->name('notification.destroy');
+
+
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidUrlProjectSpace;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateProjectRequest extends FormRequest
@@ -25,8 +26,14 @@ class CreateProjectRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'url' => 'required',
-            'description' => 'required'
+            'url' => ['required', new ValidUrlProjectSpace],
+            'description' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciuidad' => 'required',
+            'calle' => 'required',
+            'is_public' => 'required',
+            
         ];
     }
 
